@@ -43,12 +43,14 @@ STATICFILES_DIRS = [
 INSTALLED_APPS += [
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
+    'sorl.thumbnail',
     ]
     
-# For taggit
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# For taggit
 TAGGIT_CASE_INSENSITIVE = True
 TAGGIT__LIMIT = 50
 
