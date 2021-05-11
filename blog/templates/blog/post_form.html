@@ -34,6 +34,13 @@
         </div>
         <br>
         <div class="form-group row">
+            {{ form.image|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.image|add_class:"form-control-file"}}
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
             {{ form.content|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
             <div class="col-sm-5">
                 {{ form.content|add_class:"form-control"}}

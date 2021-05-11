@@ -6,7 +6,7 @@ from blog.forms import PostSearchForm
 from django.db.models import Q
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from myblog.views import OwnerOnlyMixin
 
 class PostListView(ListView):
@@ -95,12 +95,15 @@ class SearchFormView(FormView):
 #CRUD
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'description', 'content', 'tags']
+    fields = ['title', 'description', 'content', 'image', 'tags']
     success_url = reverse_lazy('blog:index')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+        
+    def get_success_url(self):
+        return reverse('blog:detail',kwargs={'pk': self.object.id })
 
 class PostChangeListView(LoginRequiredMixin, ListView):
     model = Post
@@ -111,8 +114,11 @@ class PostChangeListView(LoginRequiredMixin, ListView):
 
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model = Post
-    fields = ['title', 'slug', 'description', 'content', 'tags']
+    fields = ['title', 'description', 'content', 'image', 'tags']
     success_url = reverse_lazy('blog:index')
+
+    def get_success_url(self):
+        return reverse('blog:detail',kwargs={'pk': self.object.id })
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
     model = Post

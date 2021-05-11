@@ -40,8 +40,11 @@ post_detail.html
         {{ object.modify_date|date:"j F Y" }}
     </p>
     <br>
-
+    
     <div class="body">
+        <a href="{{ object.image.url }}">
+            <img src="{{ object.image.url }}" class="img-fluid">
+        </a>
         {{ object.content|linebreaks }}
     </div>
 
