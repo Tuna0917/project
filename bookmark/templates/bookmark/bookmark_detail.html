@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Django Bookmark
+{% endblock %}
+{% block add %}
+<a class="nav-link" href="{% url 'bookmark:add' %}">Add</a>
+{% endblock %}
+{% block content %}
+<h1>{{ object.title }}</h1>
+
+<ul>
+    <li>URL: <a href="{{ object.url }}">{{ object.url }}</a></li>
+</ul>
+{% endblock %}

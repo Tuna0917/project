@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}album_confirm_delete.html{% endblock %}
+
+{% block apadd %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Add
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a></li>
+        <li><a class="dropdown-item" href="{% url 'photo:photo_add' %}">Photo</a></li>
+      </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Are you sure?</h1>
+    <br>
+
+    <form action="." method="POST">{% csrf_token %}
+        <p>Are you sure you want to delete <strong>"{{ object }}"</strong></p>
+        <input type="submit" value="Confirm" class="btn btn-danger btn-sm"/>
+    </form>
+    
+{% endblock %}

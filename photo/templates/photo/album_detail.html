@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load sorl_thumbnail %}
+{% block title %}album_detial.html{% endblock %}
+{% block extra-style %}
+<style>
+    thumbnail{
+        border: 5px solid #ccc;
+    }
+</style>
+{% endblock %}
+{% block apadd %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Add
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a></li>
+        <li><a class="dropdown-item" href="{% url 'photo:photo_add' %}">Photo</a></li>
+      </ul>
+</li>
+{% endblock %}
+{% block content %}
+
+
+    <div class="mt-5">
+        <span class="h2">{{ object.name }}&emsp;</span>
+        <span class="h5 font-italic">{{ object.description }}</span>
+    </div>
+
+    <hr style="margin: 0 0 20px 0;">
+
+    <div class='row'>
+        {% for photo in object.photo_set.all %}
+        <div class="col-md-3 mb-5">
+            <div class="thumbnail">
+                <a href="{{ photo.get_absolute_url }}">
+                    {% thumbnail photo.image "512x512" crop="center" as im %}
+                    <img src="{{ im.url }}" style="width: 100%;">
+                    {% endthumbnail %}
+                </a>
+            </div>
+            <ul>
+                <li class="font-italic">{{ photo.title }}</li>
+                <li class="font-italic">{{ photo.upload_date|date:"Y-m-d" }}</li>
+            </ul>
+        </div>
+        {% empty %}
+        <b><i>Empty</i></b>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

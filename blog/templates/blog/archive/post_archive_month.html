@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+{% block title %}post_archive_month.html{% endblock %}
+{% block add %}
+<a class="nav-link" href="{% url 'blog:add' %}">Add</a>
+{% endblock %}
+{% block content %}
+<h1>Post Archives for {{ month|date:"N, Y" }}</h1>
+
+<div>
+    <ul>
+        {% for post in object_list %}
+        <li><a href="{% url 'blog:post_day_archive' post.modify_date|date:'Y' post.modify_date|date:'b' post.modify_date|date:'j' %}">{{ post.modify_date|date:"Y-m-d" }}</a>&nbsp;&nbsp;&nbsp;
+            <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

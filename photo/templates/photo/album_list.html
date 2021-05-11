@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load sorl_thumbnail %}
+{% block title %}album_list.html{% endblock %}
+{% block extra-style %}
+<style>
+    thumbnail{
+        border: 3px solid #ccc;
+    }
+</style>
+{% endblock %}
+{% block apadd %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Add
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a></li>
+        <li><a class="dropdown-item" href="{% url 'photo:photo_add' %}">Photo</a></li>
+      </ul>
+</li>
+{% endblock %}
+{% block content %}
+
+    {% for album in object_list %}
+
+    <div class="mt-5">
+        <a class="h2" href="{% url 'photo:album_detail' album.id %}">
+            {{ album.name }}
+        </a>&emsp;
+        <span class='font-italic h5'>{{ album.description }}</span>
+    </div>
+
+    <hr style="margin:  0 0 20px 0;">
+
+    <div class='row'>
+        {% for photo in album.photo_set.all|slice:":4" %}
+        <div class="col-3 mb-5">
+            <div class="ml-5">
+                <a href="{{ photo.get_absolute_url }}">
+                    {% thumbnail photo.image "512x512" crop="center" as im %}
+                    <img src="{{ im.url }}" style="width: 100%;">
+                    {% endthumbnail %}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
+    {% empty %}
+    <b><i>Empty</i></b>
+    {% endfor %}
+    
+
+{% endblock %}

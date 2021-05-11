@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}photo_change_list.html{% endblock %}
+
+{% block apadd %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Add
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a></li>
+        <li><a class="dropdown-item" href="{% url 'photo:photo_add' %}">Photo</a></li>
+      </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<h1>My photo - {{ user }}</h1>
+<br>
+
+<table class="table">
+    <caption>{{ user }}'s photos</caption>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Owner</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for photo in object_list %}
+      <tr>
+        <th scope="row">{{ photo.id }}</th>
+        <td><a href="{% url 'photo:photo_detail' photo.id %}">{{ photo.title }}</a></td>
+        <td>{{ photo.description }}</td>
+        <td>{{ photo.owner }}</td>
+        <td class="table-info"><a href="{% url 'photo:photo_update' photo.id %}">update</a></td>
+        <td class="table-danger"><a href="{% url 'photo:photo_delete' photo.id %}">delete</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}photo_detail.html{% endblock %}
+
+{% block apadd %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Add
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a></li>
+        <li><a class="dropdown-item" href="{% url 'photo:photo_add' %}">Photo</a></li>
+      </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+
+    <h2 class="mt-5">{{ object.title }}</h2>
+    
+    <hr style="margin:  0 0 20px 0;">
+
+    <div class="row">
+        <div class="col-md-9">
+            <a href="{{ object.image.url }}">
+                <img src="{{ object.image.url }}" style="width: 100%;">
+            </a>
+        </div>
+    
+
+    <ul class="col-md-3 mt-3">
+        <li class="h5">Photo Description</li>
+            {% if object.description %}<p>{{ object.description|linebreaks }}</p>
+            {% else %}<p>(blank)</p>{% endif %}
+        <li class="h5">Date Uploaded</li>
+            <p class="font-italic">{{ object.upload_date }}</p>
+        <li class="h5">Album Name</li>
+            <p class="font-italic">
+            <a href="{% url 'photo:album_detail' object.album.id %}">{{ object.album.name }}</a>
+            </p>
+    </ul>
+    </div>
+{% endblock %}

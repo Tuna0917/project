@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}post_confirm_delete.html{% endblock %}
+
+{% block add %}
+<a class="nav-link" href="{% url 'blog:add' %}">Add</a>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Are you sure?</h1>
+    <br>
+
+    <form action="." method="POST">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"</p>
+        <input type="submit" value="Confirm" class="btn btn-danger btn-sm"/>
+    </form>
+    
+{% endblock %}
